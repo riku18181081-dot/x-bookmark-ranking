@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X保存ランキング</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#101014;color:white;
+ font-family:Arial,"Noto Sans JP",sans-serif;
+}
+header{
+ padding:22px 16px;background:#19191f;
+ border-bottom:1px solid #303039;
+}
+.logo{font-size:25px;font-weight:bold}
+.logo span{color:#9b72ff}
+.sub{color:#999;font-size:12px;margin-top:6px}
+nav{display:flex;gap:10px;padding:16px}
+nav button{
+ flex:1;padding:12px 4px;border:0;
+ border-radius:9px;background:#25252e;
+ color:white;font-weight:bold;
+}
+nav button.active{background:#8959ee}
+h2{padding:0 16px;font-size:19px}
+.ranking{padding:0 12px}
+.item{
+ display:flex;gap:12px;padding:13px;
+ margin-bottom:12px;background:#1c1c24;
+ border:1px solid #30303a;border-radius:12px;
+}
+.thumb{
+ width:112px;min-width:112px;height:90px;
+ border-radius:8px;
+ background:linear-gradient(135deg,#42246d,#15151e);
+ display:flex;align-items:center;justify-content:center;
+ font-size:26px;
+}
+.info{flex:1;min-width:0}
+.rank{color:#ad8aff;font-weight:bold;font-size:13px}
+.name{font-size:14px;font-weight:bold;margin:8px 0}
+.count{font-size:12px;color:#aaa}
+footer{
+ text-align:center;padding:30px 10px;
+ color:#777;font-size:12px
+}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">X<span>保存ランキング</span></div>
+ <div class="sub">人気投稿ランキングサイト</div>
+</header>
+
+<nav>
+ <button class="active" onclick="changeTab(this,'日間')">日間</button>
+ <button onclick="changeTab(this,'週間')">週間</button>
+ <button onclick="changeTab(this,'月間')">月間</button>
+</nav>
+
+<h2 id="heading">🔥 日間ランキング</h2>
+
+<div class="ranking" id="ranking"></div>
+
+<footer>
+ X保存ランキング<br>
+ © 2026 X保存ランキング
+</footer>
+
+<script>
+const data={
+日間:[
+["1","人気投稿サンプル 1","12,500"],
+["2","人気投稿サンプル 2","9,800"],
+["3","人気投稿サンプル 3","7,200"],
+["4","人気投稿サンプル 4","5,400"],
+["5","人気投稿サンプル 5","3,100"]
+],
+週間:[
+["1","週間人気サンプル 1","45,000"],
+["2","週間人気サンプル 2","32,000"],
+["3","週間人気サンプル 3","21,000"]
+],
+月間:[
+["1","月間人気サンプル 1","120,000"],
+["2","月間人気サンプル 2","98,000"],
+["3","月間人気サンプル 3","76,000"]
+]
+};
+
+function render(type){
+ document.getElementById("heading").textContent=
+ "🔥 "+type+"ランキング";
+ document.getElementById("ranking").innerHTML=
+ data[type].map(item=>`
+ <div class="item">
+  <div class="thumb">▶</div>
+  <div class="info">
+   <div class="rank">NO.${item[0]}</div>
+   <div class="name">${item[1]}</div>
+   <div class="count">保存数：${item[2]}</div>
+  </div>
+ </div>
+ `).join("");
+}
+
+function changeTab(button,type){
+ document.querySelectorAll("nav button")
+ .forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+ render(type);
+}
+
+render("日間");
+</script>
+</body>
+</html>
